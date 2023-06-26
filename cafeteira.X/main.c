@@ -3,9 +3,7 @@
 ; Projeto: Cafeteira Programável
 ; Autor: Bernardo Pandolfi Costa
 ; Cafeteira
-;********************************************************************************/
-
-    
+;********************************************************************************/ 
 
 #include <xc.h>
 #include <pic16f877a.h>
@@ -37,29 +35,61 @@
 #define COFFEE_DONE PORTCbits.RC3       // INDICADOR DE CAFÉ PRONTO
 
 // LCD DISPLAY:
-#define RS PORTDbits.RD0
-#define RW PORTDbits.RD1
-#define EN PORTDbits.RD2
-#define D4 PORTDbits.RD4
-#define D5 PORTDbits.RD5
-#define D6 PORTDbits.RD6
-#define D7 PORTDbits.RD7
+#define RS PORTDbits.RD0                // DEFINE RS DO LCD
+#define RW PORTDbits.RD1                // DEFINE RW DO LCD
+#define EN PORTDbits.RD2                // DEFINE EN DO LCD
+#define D4 PORTDbits.RD4                // DEFINE D4 NO LCD
+#define D5 PORTDbits.RD5                // DEFINE D5 NO LCD
+#define D6 PORTDbits.RD6                // DEFINE D6 NO LCD
+#define D7 PORTDbits.RD7                // DEFINE D7 NO LCD
 
+#define _XTAL_FREQ 4000000              // DEFINE FREQUÊNCIA
 
-#define _XTAL_FREQ 4000000
+#include "lcd.h"                        // incluir configurações do LCD
 
-#include "lcd.h"
+int conta=0;                            // variável auxiliar pra contar o tempo
+
+void __interrupt() TrataInt(void)
+
+{    
+  if (TMR1IF)                           // verifica se foi a interrupção da contagem
+     {  
+        PIR1bits.TMR1IF = 0;            // reseta o flag da interrupção
+        TMR1L = 0xDC;                   // reinicia os valores da contagem
+        TMR1H = 0x0B;                   // reinicia os valores da contagem
+        
+        conta++;                        // incrementa a contagem
+        if (conta==10) {                // verifica se já passaram os 3 segundos
+
+            //TRATAR AQUI
+            
+            conta = 0;                  // reinicia a conta
+        }
+  }
+  return;                               // retorna ao programa
+}
 
 int main()
 {
-  char buffer[20];
+  OPTION_REGbits.nRBPU = 0;             // ativa resistores de pull-ups
   
-  TRISD = 0x00;  //configura PORTD como sa?da. Local onde deve estar o LCD
-  TRISC = 0x00;
-  TEMP_RESISTOR = 0;
-  COFFEE_DISPOSER = 0;
-  MILK_DISPOSER = 0;
-  COFFEE_DONE = 0;
+  TRISD = 0x00;                         // configura PORTD como saída (LCD)
+  TRISC = 0x00;                         // configura PORTC como saída (demais outputs)
+  TEMP_RESISTOR = 0;                    // inicia outputs como 0
+  COFFEE_DISPOSER = 0;                  // inicia outputs como 0
+  MILK_DISPOSER = 0;                    // inicia outputs como 0
+  COFFEE_DONE = 0;                      // inicia outputs como 0
+  
+  INTCONbits.GIE = 1;                   // habilita int global
+  INTCONbits.PEIE = 1;                  // habilita int dos periféricos
+  PIE1bits.TMR1IE = 1;                  // habilitar int do timer 1
+  
+  T1CONbits.TMR1CS = 0;                 // define timer 1 como temporizador
+  T1CONbits.T1CKPS0 = 1;                // bit para configurar pre-escaler, neste caso 1:8
+  T1CONbits.T1CKPS1 = 1;                // 
+  
+  TMR1L = 0xDC;                         // carga do valor inicial do contador
+  TMR1H = 0x0B;                         // quando estourar passou 0.5s
   
   Lcd_Init();    //necess?rio para o LCD iniciar
   
