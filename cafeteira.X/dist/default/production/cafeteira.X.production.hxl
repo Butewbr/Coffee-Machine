@@ -10,13 +10,13 @@
 ### Memory Usage ###
  Intel Hex-file ranges:
   0h - 5h		(dist/default/production\cafeteira.X.production.hex)
-  8h - 35Fh		(dist/default/production\cafeteira.X.production.hex)
-  400h - 923h		(dist/default/production\cafeteira.X.production.hex)
+  8h - 379h		(dist/default/production\cafeteira.X.production.hex)
+  400h - 94Bh		(dist/default/production\cafeteira.X.production.hex)
   400Eh - 400Fh		(dist/default/production\cafeteira.X.production.hex)
  Unused ranges:
   6h - 7h
-  360h - 3FFh
-  924h - 400Dh
+  37Ah - 3FFh
+  94Ch - 400Dh
 
 ### Hex Memory Map ###
  Legend:
@@ -79,6 +79,8 @@
 00000330 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000340 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000350 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000360 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000370 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- -- -- --
 ----------------------------------------------------------
 00000400 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000410 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
@@ -162,6 +164,8 @@
 000008F0 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000900 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
 00000910 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
-00000920 | H1 H1 H1 H1 -- -- -- -- -- -- -- -- -- -- -- --
+00000920 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000930 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1
+00000940 | H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 H1 -- -- -- --
 ----------------------------------------------------------
 00004000 | -- -- -- -- -- -- -- -- -- -- -- -- -- -- H1 H1

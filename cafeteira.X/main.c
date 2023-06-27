@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 #pragma config FOSC = EXTRC             // Oscillator Selection bits (RC oscillator)
-#pragma config WDTE = OFF               // Watchdog Timer Enable bit (WDT enabled)
+#pragma config WDTE = ON                // Watchdog Timer Enable bit (WDT enabled)
 #pragma config PWRTE = ON               // Power-up Timer Enable bit (PWRT enabled)
 #pragma config BOREN = ON               // Brown-out Reset Enable bit (BOR enabled)
 #pragma config LVP = OFF                // Low-Voltage (Single-Supply) In-Circuit Serial Programming Enable bit (RB3/PGM pin has PGM function; low-voltage programming enabled)
@@ -61,8 +61,11 @@ void __interrupt() TrataInt(void) { // função de interrupção
         TMR1L = 0xDC; // reinicia os valores da contagem
         TMR1H = 0x0B; // reinicia os valores da contagem
 
+        if (conta < 20) { // se por algum motivo desconhecido a conta passar de 20 e nunca mais acabar, não vai resetar o WDT pra arrumar
+            CLRWDT(); // reseta a contagem do WDT
+        }
         conta++; // incrementa a contagem
-        if (conta == 10) { // verifica se já passou o tempo
+        if (conta == 20) { // verifica se já passou o tempo
 
             if (coffee_or_milk == 0) { // verifica se é o timer é de despejar café
                 COFFEE_DONE = 1; // liga o indicador de café pronto
@@ -85,14 +88,16 @@ void __interrupt() TrataInt(void) { // função de interrupção
             MILK_DISPOSER = 0; // desliga a válvula do leite
             coffee_flag = 1; // considera café despejado
             milk_flag = 1; // considera leite despejado
-            TEMP_RESISTOR = 0;
+            TEMP_RESISTOR = 0; // desliga o resistor pra esquentar
         }
-
     }
     return; // retorna ao programa
 }
 
 int main() { // função main do programa
+
+    CLRWDT(); // reseta a contagem do WDT
+
     OPTION_REGbits.nRBPU = 0; // ativa resistores de pull-ups
 
     TRISD = 0x00; // configura PORTD como saída (LCD)
@@ -116,6 +121,8 @@ int main() { // função main do programa
     Lcd_Init(); //necessário para o LCD iniciar
 
     while (1) { // loop do programa
+        CLRWDT(); // reseta a contagem do WDT
+
         coffee_flag = 0; // coloca a flag de café despejado em 0
         milk_flag = 0; // coloca a flag de leite despejado em 0
         if (WATER_VOLUME == 1 && COFFEE_WEIGHT == 0) { // se tá faltando água, mas tem café
@@ -165,25 +172,28 @@ int main() { // função main do programa
                     }
                     TEMP_RESISTOR = 0; // ao fim, desliga-se o resistor
                 }
+                CLRWDT(); //reseta a contagem do WDT
                 T1CONbits.TMR1ON = 1; // liga o timer
                 if (MILK == 1) { // verifica se o usuário configurou com leite
                     milk_flag = 0; // coloca a flag de leite despejado em 0
                     Lcd_Set_Cursor(2, 1); // coloca o cursor do LCD na segunda linha
                     Lcd_Write_String("Pouring Milk... "); // escreve na tela
-                    
+
                     while (milk_flag == 0) { // enquanto o leite não for despejado
                         MILK_DISPOSER = 1; // deixa a válvula de leite ligada
                         coffee_or_milk = 1; // coloca a variável auxiliar para indicar que leite está sendo despejado
                     }
+                    CLRWDT(); //reseta a contagem do WDT
                     MILK_DISPOSER = 0; // desliga a válvula do leite
                 }
-                
+
                 Lcd_Set_Cursor(2, 1); // coloca o cursor do LCD na segunda linha
                 Lcd_Write_String("Pouring Coffee.."); // escreve na tela
                 while (coffee_flag == 0) { // enquanto o café não for despejado
                     COFFEE_DISPOSER = 1; // deixa a válvula de café ligada
                     coffee_or_milk = 0; // coloca a variável auxiliar para indicar que café está sendo despejado
                 }
+                CLRWDT(); //reseta a contagem do WDT
                 COFFEE_DISPOSER = 0; // desliga a válvula de café
                 coffee_or_milk = 2; // coloca a variável auxiliar para indicar que nem café nem leite estão despejados, mas sim que o café está pronto
             }

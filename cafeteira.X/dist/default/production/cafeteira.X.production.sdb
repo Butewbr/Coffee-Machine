@@ -27,7 +27,7 @@
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
 "57 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X\main.c
 [v _TrataInt TrataInt `II(v  1 e 1 0 ]
-"95
+"97
 [v _main main `(i  1 e 2 0 ]
 [s S211 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
@@ -160,10 +160,10 @@
 [v _coffee_flag coffee_flag `i  1 e 2 0 ]
 "55
 [v _preparating preparating `i  1 e 2 0 ]
-"95
+"97
 [v _main main `(i  1 e 2 0 ]
 {
-"193
+"203
 } 0
 "97 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X/lcd.h
 [v _Lcd_Write_String Lcd_Write_String `(v  1 e 1 0 ]
@@ -182,12 +182,12 @@
 {
 [v Lcd_Write_Char@a a `uc  1 a 1 wreg ]
 "83
-[v Lcd_Write_Char@y y `uc  1 a 1 5 ]
-[v Lcd_Write_Char@temp temp `uc  1 a 1 4 ]
+[v Lcd_Write_Char@y y `uc  1 a 1 6 ]
+[v Lcd_Write_Char@temp temp `uc  1 a 1 5 ]
 "81
 [v Lcd_Write_Char@a a `uc  1 a 1 wreg ]
 "84
-[v Lcd_Write_Char@a a `uc  1 a 1 6 ]
+[v Lcd_Write_Char@a a `uc  1 a 1 7 ]
 "95
 } 0
 "41
@@ -200,7 +200,7 @@
 [v Lcd_Set_Cursor@z z `uc  1 a 1 3 ]
 "41
 [v Lcd_Set_Cursor@a a `uc  1 a 1 wreg ]
-[v Lcd_Set_Cursor@b b `uc  1 p 1 6 ]
+[v Lcd_Set_Cursor@b b `uc  1 p 1 7 ]
 "44
 [v Lcd_Set_Cursor@a a `uc  1 a 1 2 ]
 "60
@@ -221,7 +221,7 @@
 [v Lcd_Cmd@a a `uc  1 a 1 wreg ]
 [v Lcd_Cmd@a a `uc  1 a 1 wreg ]
 "28
-[v Lcd_Cmd@a a `uc  1 a 1 5 ]
+[v Lcd_Cmd@a a `uc  1 a 1 6 ]
 "33
 } 0
 "4
@@ -230,11 +230,11 @@
 [v Lcd_Port@a a `uc  1 a 1 wreg ]
 [v Lcd_Port@a a `uc  1 a 1 wreg ]
 "6
-[v Lcd_Port@a a `uc  1 a 1 2 ]
+[v Lcd_Port@a a `uc  1 a 1 3 ]
 "25
 } 0
 "57 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X\main.c
 [v _TrataInt TrataInt `II(v  1 e 1 0 ]
 {
-"93
+"95
 } 0

@@ -1828,7 +1828,7 @@ extern int printf(const char *, ...);
 
 
 #pragma config FOSC = EXTRC
-#pragma config WDTE = OFF
+#pragma config WDTE = ON
 #pragma config PWRTE = ON
 #pragma config BOREN = ON
 #pragma config LVP = OFF
@@ -1967,8 +1967,11 @@ void __attribute__((picinterrupt(("")))) TrataInt(void) {
         TMR1L = 0xDC;
         TMR1H = 0x0B;
 
+        if (conta < 20) {
+            __asm("clrwdt");
+        }
         conta++;
-        if (conta == 10) {
+        if (conta == 20) {
 
             if (coffee_or_milk == 0) {
                 PORTCbits.RC3 = 1;
@@ -1993,12 +1996,14 @@ void __attribute__((picinterrupt(("")))) TrataInt(void) {
             milk_flag = 1;
             PORTCbits.RC0 = 0;
         }
-
     }
     return;
 }
 
 int main() {
+
+    __asm("clrwdt");
+
     OPTION_REGbits.nRBPU = 0;
 
     TRISD = 0x00;
@@ -2022,6 +2027,8 @@ int main() {
     Lcd_Init();
 
     while (1) {
+        __asm("clrwdt");
+
         coffee_flag = 0;
         milk_flag = 0;
         if (PORTBbits.RB3 == 1 && PORTBbits.RB5 == 0) {
@@ -2071,6 +2078,7 @@ int main() {
                     }
                     PORTCbits.RC0 = 0;
                 }
+                __asm("clrwdt");
                 T1CONbits.TMR1ON = 1;
                 if (PORTBbits.RB2 == 1) {
                     milk_flag = 0;
@@ -2081,6 +2089,7 @@ int main() {
                         PORTCbits.RC2 = 1;
                         coffee_or_milk = 1;
                     }
+                    __asm("clrwdt");
                     PORTCbits.RC2 = 0;
                 }
 
@@ -2090,6 +2099,7 @@ int main() {
                     PORTCbits.RC1 = 1;
                     coffee_or_milk = 0;
                 }
+                __asm("clrwdt");
                 PORTCbits.RC1 = 0;
                 coffee_or_milk = 2;
             }
