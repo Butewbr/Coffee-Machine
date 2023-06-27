@@ -25,9 +25,11 @@
 [v ___eecpymem __eecpymem `(v  1 e 1 0 ]
 "39
 [v ___memcpyee __memcpyee `(v  1 e 1 0 ]
-"53 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X\main.c
+"57 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X\main.c
+[v _TrataInt TrataInt `II(v  1 e 1 0 ]
+"95
 [v _main main `(i  1 e 2 0 ]
-[s S72 . 1 `uc 1 RB0 1 0 :1:0 
+[s S211 . 1 `uc 1 RB0 1 0 :1:0 
 `uc 1 RB1 1 0 :1:1 
 `uc 1 RB2 1 0 :1:2 
 `uc 1 RB3 1 0 :1:3 
@@ -37,9 +39,9 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "233 D:/Arquivos de Programas/mplab/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\pic\include\proc\pic16f877a.h
-[u S81 . 1 `S72 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES81  1 e 1 @6 ]
-[s S51 . 1 `uc 1 RC0 1 0 :1:0 
+[u S220 . 1 `S211 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES220  1 e 1 @6 ]
+[s S73 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
 `uc 1 RC2 1 0 :1:2 
 `uc 1 RC3 1 0 :1:3 
@@ -49,8 +51,8 @@
 `uc 1 RC7 1 0 :1:7 
 ]
 "295
-[u S60 . 1 `S51 1 . 1 0 ]
-[v _PORTCbits PORTCbits `VES60  1 e 1 @7 ]
+[u S82 . 1 `S73 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES82  1 e 1 @7 ]
 [s S22 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
@@ -63,25 +65,116 @@
 "357
 [u S31 . 1 `S22 1 . 1 0 ]
 [v _PORTDbits PORTDbits `VES31  1 e 1 @8 ]
+[s S95 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"477
+[s S104 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 T0IE 1 0 :1:5 
+]
+[u S109 . 1 `S95 1 . 1 0 `S104 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES109  1 e 1 @11 ]
+[s S50 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+`uc 1 PSPIF 1 0 :1:7 
+]
+"549
+[u S59 . 1 `S50 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES59  1 e 1 @12 ]
+"641
+[v _TMR1L TMR1L `VEuc  1 e 1 @14 ]
+"648
+[v _TMR1H TMR1H `VEuc  1 e 1 @15 ]
+[s S176 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 TMR1CS 1 0 :1:1 
+`uc 1 nT1SYNC 1 0 :1:2 
+`uc 1 T1OSCEN 1 0 :1:3 
+`uc 1 T1CKPS 1 0 :2:4 
+]
+"680
+[s S182 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T1SYNC 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+]
+[s S188 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T1INSYNC 1 0 :1:2 
+]
+[u S191 . 1 `S176 1 . 1 0 `S182 1 . 1 0 `S188 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES191  1 e 1 @16 ]
+[s S127 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nRBPU 1 0 :1:7 
+]
+"1275
+[s S134 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+]
+[u S138 . 1 `S127 1 . 1 0 `S134 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES138  1 e 1 @129 ]
 "1437
 [v _TRISC TRISC `VEuc  1 e 1 @135 ]
 "1499
 [v _TRISD TRISD `VEuc  1 e 1 @136 ]
-"53 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X\main.c
+[s S155 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 CCP1IE 1 0 :1:2 
+`uc 1 SSPIE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+`uc 1 PSPIE 1 0 :1:7 
+]
+"1635
+[u S164 . 1 `S155 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES164  1 e 1 @140 ]
+"2605
+[v _INTF INTF `VEb  1 e 0 @89 ]
+"2890
+[v _TMR1IF TMR1IF `VEb  1 e 0 @96 ]
+"51 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X\main.c
+[v _conta conta `i  1 e 2 0 ]
+"52
+[v _coffee_or_milk coffee_or_milk `i  1 e 2 0 ]
+"53
+[v _milk_flag milk_flag `i  1 e 2 0 ]
+"54
+[v _coffee_flag coffee_flag `i  1 e 2 0 ]
+"55
+[v _preparating preparating `i  1 e 2 0 ]
+"95
 [v _main main `(i  1 e 2 0 ]
 {
-"147
+"193
 } 0
 "97 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X/lcd.h
 [v _Lcd_Write_String Lcd_Write_String `(v  1 e 1 0 ]
 {
 [v Lcd_Write_String@a a `*.24uc  1 a 1 wreg ]
 "99
-[v Lcd_Write_String@i i `i  1 a 2 5 ]
+[v Lcd_Write_String@i i `i  1 a 2 0 ]
 "97
 [v Lcd_Write_String@a a `*.24uc  1 a 1 wreg ]
 "100
-[v Lcd_Write_String@a a `*.24uc  1 a 1 7 ]
+[v Lcd_Write_String@a a `*.24uc  1 a 1 2 ]
 "102
 } 0
 "81
@@ -89,12 +182,12 @@
 {
 [v Lcd_Write_Char@a a `uc  1 a 1 wreg ]
 "83
-[v Lcd_Write_Char@y y `uc  1 a 1 3 ]
-[v Lcd_Write_Char@temp temp `uc  1 a 1 2 ]
+[v Lcd_Write_Char@y y `uc  1 a 1 5 ]
+[v Lcd_Write_Char@temp temp `uc  1 a 1 4 ]
 "81
 [v Lcd_Write_Char@a a `uc  1 a 1 wreg ]
 "84
-[v Lcd_Write_Char@a a `uc  1 a 1 4 ]
+[v Lcd_Write_Char@a a `uc  1 a 1 6 ]
 "95
 } 0
 "41
@@ -102,14 +195,14 @@
 {
 [v Lcd_Set_Cursor@a a `uc  1 a 1 wreg ]
 "43
-[v Lcd_Set_Cursor@temp temp `uc  1 a 1 10 ]
-[v Lcd_Set_Cursor@y y `uc  1 a 1 9 ]
-[v Lcd_Set_Cursor@z z `uc  1 a 1 8 ]
+[v Lcd_Set_Cursor@temp temp `uc  1 a 1 5 ]
+[v Lcd_Set_Cursor@y y `uc  1 a 1 4 ]
+[v Lcd_Set_Cursor@z z `uc  1 a 1 3 ]
 "41
 [v Lcd_Set_Cursor@a a `uc  1 a 1 wreg ]
-[v Lcd_Set_Cursor@b b `uc  1 p 1 4 ]
+[v Lcd_Set_Cursor@b b `uc  1 p 1 6 ]
 "44
-[v Lcd_Set_Cursor@a a `uc  1 a 1 7 ]
+[v Lcd_Set_Cursor@a a `uc  1 a 1 2 ]
 "60
 } 0
 "62
@@ -128,7 +221,7 @@
 [v Lcd_Cmd@a a `uc  1 a 1 wreg ]
 [v Lcd_Cmd@a a `uc  1 a 1 wreg ]
 "28
-[v Lcd_Cmd@a a `uc  1 a 1 3 ]
+[v Lcd_Cmd@a a `uc  1 a 1 5 ]
 "33
 } 0
 "4
@@ -137,6 +230,11 @@
 [v Lcd_Port@a a `uc  1 a 1 wreg ]
 [v Lcd_Port@a a `uc  1 a 1 wreg ]
 "6
-[v Lcd_Port@a a `uc  1 a 1 0 ]
+[v Lcd_Port@a a `uc  1 a 1 2 ]
 "25
+} 0
+"57 D:\대학교\여섯 번째 학기\Microprocessadores e Microcontroladores\cafeteira\cafeteira.X\main.c
+[v _TrataInt TrataInt `II(v  1 e 1 0 ]
+{
+"93
 } 0

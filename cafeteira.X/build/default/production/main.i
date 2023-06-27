@@ -7,7 +7,14 @@
 # 1 "D:/Arquivos de Programas/mplab/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
 # 1 "main.c" 2
-# 10 "main.c"
+
+
+
+
+
+
+
+
 # 1 "D:/Arquivos de Programas/mplab/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 1 3
 # 18 "D:/Arquivos de Programas/mplab/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -1717,7 +1724,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 28 "D:/Arquivos de Programas/mplab/packs/Microchip/PIC16Fxxx_DFP/1.2.33/xc8\\pic\\include\\xc.h" 2 3
-# 10 "main.c" 2
+# 9 "main.c" 2
 
 
 # 1 "C:\\Program Files\\Microchip\\xc8\\v2.36\\pic\\include\\c90\\stdio.h" 1 3
@@ -1817,7 +1824,7 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 #pragma printf_check(sprintf) const
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
-# 12 "main.c" 2
+# 11 "main.c" 2
 
 
 #pragma config FOSC = EXTRC
@@ -1828,7 +1835,7 @@ extern int printf(const char *, ...);
 #pragma config CPD = OFF
 #pragma config WRT = OFF
 #pragma config CP = OFF
-# 51 "main.c"
+# 49 "main.c"
 # 1 "./lcd.h" 1
 
 
@@ -1944,101 +1951,149 @@ void Lcd_Shift_Left()
  Lcd_Cmd(0x01);
  Lcd_Cmd(0x08);
 }
-# 51 "main.c" 2
+# 49 "main.c" 2
 
 
-int main()
-{
-  char buffer[20];
+int conta = 0;
+int coffee_or_milk = 0;
+int milk_flag = 1;
+int coffee_flag = 0;
+int preparating = 0;
 
-  TRISD = 0x00;
-  TRISC = 0x00;
-  PORTCbits.RC0 = 0;
-  PORTCbits.RC1 = 0;
-  PORTCbits.RC2 = 0;
-  PORTCbits.RC3 = 0;
+void __attribute__((picinterrupt(("")))) TrataInt(void) {
+    if (TMR1IF)
+    {
+        PIR1bits.TMR1IF = 0;
+        TMR1L = 0xDC;
+        TMR1H = 0x0B;
 
-  Lcd_Init();
+        conta++;
+        if (conta == 10) {
 
-  while(1)
-  {
-    if(PORTBbits.RB3 == 1 && PORTBbits.RB5 == 0) {
-        Lcd_Set_Cursor(1,1);
-        Lcd_Write_String("NO WATER LEFT!! ");
-        Lcd_Set_Cursor(2,1);
-        Lcd_Write_String("                ");
-    }
-    else if(PORTBbits.RB3 == 0 && PORTBbits.RB5 == 1) {
-        Lcd_Set_Cursor(1,1);
-        Lcd_Write_String("NO COFFEE LEFT!!");
-        Lcd_Set_Cursor(2,1);
-        Lcd_Write_String("                ");
-    }
-    else if(PORTBbits.RB3 == 1 && PORTBbits.RB5 == 1) {
-        Lcd_Set_Cursor(1,1);
-        Lcd_Write_String("NO WATER LEFT!! ");
-        Lcd_Set_Cursor(2,1);
-        Lcd_Write_String("NO COFFEE LEFT!!");
-    }
-    else if(PORTBbits.RB4 == 1 && PORTBbits.RB2 == 1) {
-        Lcd_Set_Cursor(1,1);
-        Lcd_Write_String("NO MILK LEFT!!  ");
-    }
-    else {
-        Lcd_Set_Cursor(1,1);
-        Lcd_Write_String("Your coffee:    ");
-        Lcd_Set_Cursor(2,1);
-
-        if(PORTBbits.RB1 == 1 && PORTBbits.RB2 == 1 && PORTBbits.RB4 == 0) {
-            Lcd_Write_String("Cold w/ Milk    ");
-        }
-        else if(PORTBbits.RB1 == 1 && PORTBbits.RB2 == 0) {
-            Lcd_Write_String("Cold wo/ Milk   ");
-        }
-        else if (PORTBbits.RB1 == 0 && PORTBbits.RB2 == 1 && PORTBbits.RB4 == 0){
-            Lcd_Write_String("Hot w/ Milk     ");
-        }
-        else if (PORTBbits.RB1 == 0 && PORTBbits.RB2 == 0) {
-            Lcd_Write_String("Hot wo/ Milk    ");
-        }
-
-        if(PORTBbits.RB7 == 1) {
-            Lcd_Clear();
-            Lcd_Set_Cursor(1,1);
-            Lcd_Write_String("Preparing Coffee");
-            if(PORTBbits.RB1 == 0) {
-                Lcd_Set_Cursor(2,1);
-                Lcd_Write_String("Warming Up...   ");
-                while(PORTBbits.RB6 == 0){
-                    PORTCbits.RC0 = 1;
-                };
-                PORTCbits.RC0 = 0;
+            if (coffee_or_milk == 0) {
+                PORTCbits.RC3 = 1;
+                coffee_flag = 1;
+            } else if (coffee_or_milk == 1) {
+                milk_flag = 1;
+            } else {
+                PORTCbits.RC3 = 0;
             }
-            Lcd_Set_Cursor(2,1);
-            Lcd_Write_String("Pouring Coffee..");
-            PORTCbits.RC1 = 1;
-            _delay((unsigned long)((3000)*(4000000/4000.0)));
+
+            conta = 0;
+        }
+    }
+    if (INTF)
+    {
+        INTCONbits.INTF = 0;
+
+        if (preparating == 1) {
             PORTCbits.RC1 = 0;
-            if(PORTBbits.RB2 == 1) {
-                Lcd_Set_Cursor(2,1);
-                Lcd_Write_String("Pouring Milk... ");
-                PORTCbits.RC2 = 1;
-                _delay((unsigned long)((3000)*(4000000/4000.0)));
-                PORTCbits.RC2 = 0;
+            PORTCbits.RC2 = 0;
+            coffee_flag = 1;
+            milk_flag = 1;
+            PORTCbits.RC0 = 0;
+        }
+
+    }
+    return;
+}
+
+int main() {
+    OPTION_REGbits.nRBPU = 0;
+
+    TRISD = 0x00;
+    TRISC = 0x00;
+    PORTCbits.RC0 = 0;
+    PORTCbits.RC1 = 0;
+    PORTCbits.RC2 = 0;
+    PORTCbits.RC3 = 0;
+
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
+    PIE1bits.TMR1IE = 1;
+
+    T1CONbits.TMR1CS = 0;
+    T1CONbits.T1CKPS0 = 1;
+    T1CONbits.T1CKPS1 = 1;
+
+    TMR1L = 0xDC;
+    TMR1H = 0x0B;
+
+    Lcd_Init();
+
+    while (1) {
+        coffee_flag = 0;
+        milk_flag = 0;
+        if (PORTBbits.RB3 == 1 && PORTBbits.RB5 == 0) {
+            Lcd_Set_Cursor(1, 1);
+            Lcd_Write_String("NO WATER LEFT!! ");
+            Lcd_Set_Cursor(2, 1);
+            Lcd_Write_String("                ");
+        } else if (PORTBbits.RB3 == 0 && PORTBbits.RB5 == 1) {
+            Lcd_Set_Cursor(1, 1);
+            Lcd_Write_String("NO COFFEE LEFT!!");
+            Lcd_Set_Cursor(2, 1);
+            Lcd_Write_String("                ");
+        } else if (PORTBbits.RB3 == 1 && PORTBbits.RB5 == 1) {
+            Lcd_Set_Cursor(1, 1);
+            Lcd_Write_String("NO WATER LEFT!! ");
+            Lcd_Set_Cursor(2, 1);
+            Lcd_Write_String("NO COFFEE LEFT!!");
+        } else if (PORTBbits.RB4 == 1 && PORTBbits.RB2 == 1) {
+            Lcd_Set_Cursor(1, 1);
+            Lcd_Write_String("NO MILK LEFT!!  ");
+        } else {
+            Lcd_Set_Cursor(1, 1);
+            Lcd_Write_String("Your coffee:    ");
+            Lcd_Set_Cursor(2, 1);
+
+            if (PORTBbits.RB1 == 1 && PORTBbits.RB2 == 1 && PORTBbits.RB4 == 0) {
+                Lcd_Write_String("Cold w/ Milk    ");
+            } else if (PORTBbits.RB1 == 1 && PORTBbits.RB2 == 0) {
+                Lcd_Write_String("Cold wo/ Milk   ");
+            } else if (PORTBbits.RB1 == 0 && PORTBbits.RB2 == 1 && PORTBbits.RB4 == 0) {
+                Lcd_Write_String("Hot w/ Milk     ");
+            } else if (PORTBbits.RB1 == 0 && PORTBbits.RB2 == 0) {
+                Lcd_Write_String("Hot wo/ Milk    ");
             }
-            Lcd_Clear();
-            Lcd_Set_Cursor(1,1);
-            PORTCbits.RC3 = 1;
-            Lcd_Write_String("Coffee Done!!!  ");
-            _delay((unsigned long)((3000)*(4000000/4000.0)));
-            PORTCbits.RC3 = 0;
+
+            if (PORTBbits.RB7 == 1) {
+                T1CONbits.TMR1ON = 0;
+                preparating = 1;
+                Lcd_Clear();
+                Lcd_Set_Cursor(1, 1);
+                Lcd_Write_String("Preparing Coffee");
+                if (PORTBbits.RB1 == 0) {
+                    Lcd_Set_Cursor(2, 1);
+                    Lcd_Write_String("Warming Up...   ");
+                    while (PORTBbits.RB6 == 0) {
+                        PORTCbits.RC0 = 1;
+                    }
+                    PORTCbits.RC0 = 0;
+                }
+                T1CONbits.TMR1ON = 1;
+                if (PORTBbits.RB2 == 1) {
+                    milk_flag = 0;
+                    Lcd_Set_Cursor(2, 1);
+                    Lcd_Write_String("Pouring Milk... ");
+
+                    while (milk_flag == 0) {
+                        PORTCbits.RC2 = 1;
+                        coffee_or_milk = 1;
+                    }
+                    PORTCbits.RC2 = 0;
+                }
+
+                Lcd_Set_Cursor(2, 1);
+                Lcd_Write_String("Pouring Coffee..");
+                while (coffee_flag == 0) {
+                    PORTCbits.RC1 = 1;
+                    coffee_or_milk = 0;
+                }
+                PORTCbits.RC1 = 0;
+                coffee_or_milk = 2;
+            }
         }
     }
-
-
-
-
-
-  }
-  return 0;
+    return 0;
 }

@@ -14,7 +14,7 @@ Disciplina: Microprocessadores e Microcontroladores
 * LED-PINK: Motores/válvulas
 * LED-GREEN: Indicador de café pronto
 
-## Elementos do Sistema
+## 🔍 Elementos do Sistema
 ### Entradas:
 * Switch que configura **quente/gelado**
 * Switch que configura se terá **leite** ou não
